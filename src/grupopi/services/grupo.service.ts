@@ -1,6 +1,6 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Body, HttpCode, HttpException, HttpStatus, Injectable, Put } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { DeleteResult, ILike, Repository } from "typeorm";
 import { Grupo } from "../entities/grupo.entity";
 
 
@@ -28,4 +28,38 @@ export class GrupoService {
         
         return grupo;
     }
+
+    async findByNome(nome: string): Promise<Grupo[]> {
+        return await this.grupoRepository.find({
+            where:{
+                nome: ILike(`%${nome}`)
+            }
+        })
+    }
+
+    async create(grupo: Grupo): Promise<Grupo> {
+        return await this.grupoRepository.save(grupo)
+    }
+
+    async update(grupo: Grupo): Promise<Grupo> {
+
+        const buscaGrupo: Grupo = await this.findById(grupo.id);
+
+        if (!buscaGrupo || !grupo.id)
+            throw new HttpException('Grupo não encontrado!', HttpStatus.NOT_FOUND);
+        
+        return await this.grupoRepository.save(grupo);
+    }
+
+    async delete(id: number): Promise<DeleteResult> {
+
+        const buscaGrupo = await this.findById(id);
+
+        if(!buscaGrupo)
+            throw new HttpException('Grupo não encontrado!', HttpStatus.NOT_FOUND);
+
+        return await this.grupoRepository.delete(id);
+    }
+
+    
 }
