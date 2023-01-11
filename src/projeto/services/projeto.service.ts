@@ -2,7 +2,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Projeto } from "../entities/projeto.entity";
-import { ILike, Repository } from "typeorm";
+import { DeleteResult, ILike, Repository } from "typeorm";
 
 
 @Injectable()
@@ -49,5 +49,14 @@ export class ProjetoService {
         throw new HttpException('Projeto não encontrado!', HttpStatus.NOT_FOUND);
 
         return await this.projetoRepository.save(projeto);
+    }
+
+    async delete(id: number): Promise<DeleteResult> {
+        const buscaProjeto = await this.findById(id);
+
+        if(!buscaProjeto)
+            throw new HttpException('Projeto não encontrado!', HttpStatus.NOT_FOUND);
+
+        return await this.projetoRepository.delete(id);
     }
 }

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {Put, Post, Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from "@nestjs/common";
+import {Put, Post, Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Delete } from "@nestjs/common";
 import { Projeto } from "../entities/projeto.entity";
 import { ProjetoService } from "../services/projeto.service";
 
@@ -38,4 +38,9 @@ export class ProjetoController {
         return this.projetoService.update(projeto)
     }
 
+    @Delete('/:id')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    delete(@Param('id', ParseIntPipe) id:number) {
+        return this.projetoService.delete(id);
+    }
 }
