@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
-import {Post, Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from "@nestjs/common";
+import {Put, Post, Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from "@nestjs/common";
 import { Projeto } from "../entities/projeto.entity";
 import { ProjetoService } from "../services/projeto.service";
-
 
 
 @Controller('/projeto')
@@ -31,6 +30,12 @@ export class ProjetoController {
     @HttpCode(HttpStatus.CREATED)
     create(@Body() projeto: Projeto): Promise<Projeto> {
         return this.projetoService.create(projeto);
+    }
+
+    @Put()
+    @HttpCode (HttpStatus.OK)
+    update(@Body()projeto:Projeto): Promise <Projeto> {
+        return this.projetoService.update(projeto)
     }
 
 }

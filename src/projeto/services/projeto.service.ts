@@ -41,4 +41,13 @@ export class ProjetoService {
     async create (projeto: Projeto): Promise<Projeto> {
         return await this.projetoRepository.save(projeto);
     }
+
+    async update( projeto: Projeto): Promise <Projeto> {
+        const buscaProjeto: Projeto = await this.findById(projeto.id);
+
+        if(!buscaProjeto|| ! projeto.id)
+        throw new HttpException('Projeto não encontrado!', HttpStatus.NOT_FOUND);
+
+        return await this.projetoRepository.save(projeto);
+    }
 }
