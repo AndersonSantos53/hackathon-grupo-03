@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -15,7 +16,7 @@ import { ProjetoModule } from './projeto/projeto.module';
       username: 'root',
       password: 'root',
       database: 'db_hackathon',
-      entities: [Projeto,Grupo],
+      entities: [Projeto],
       synchronize: true,
     }),
     ProjetoModule
