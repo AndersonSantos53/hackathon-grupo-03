@@ -2,7 +2,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Projeto } from "../entities/projeto.entity";
-import { Repository } from "typeorm";
+import { ILike, Repository } from "typeorm";
 
 
 @Injectable()
@@ -28,5 +28,17 @@ export class ProjetoService {
         throw new HttpException('Projeto não encontrado!', HttpStatus.NOT_FOUND);
 
         return projeto;
+    }
+
+    async findByNomeProjeto(nomeProjeto: string): Promise <Projeto[]> {
+        return await this.projetoRepository.find({
+            where:{
+                nomeProjeto: ILike(`%${nomeProjeto}%`)
+            }
+        })
+    }
+
+    async create (projeto: Projeto): Promise<Projeto> {
+        return await this.projetoRepository.save(projeto);
     }
 }

@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from "@nestjs/common";
+import {Post, Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from "@nestjs/common";
 import { Projeto } from "../entities/projeto.entity";
 import { ProjetoService } from "../services/projeto.service";
+
 
 
 @Controller('/projeto')
@@ -19,4 +20,17 @@ export class ProjetoController {
     findById(@Param('id', ParseIntPipe) id: number): Promise<Projeto> {
         return this.projetoService.findById(id)
     }
+
+    @Get('/nome/:nomeProjeto')
+    @HttpCode(HttpStatus.OK)
+    findByNomeProjeto(@Param('nomeProjeto')nomeProjeto: string): Promise <Projeto[]> {
+        return this.projetoService.findByNomeProjeto(nomeProjeto)
+    }
+
+    @Post()
+    @HttpCode(HttpStatus.CREATED)
+    create(@Body() projeto: Projeto): Promise<Projeto> {
+        return this.projetoService.create(projeto);
+    }
+
 }
