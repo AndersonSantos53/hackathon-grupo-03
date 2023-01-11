@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Projeto } from './projeto/entities/projeto.entity';
+import { Grupo } from './grupopi/entities/grupo.entity';
+import { ProjetoModule } from './projeto/projeto.module';
 
 @Module({
   imports: [
@@ -12,9 +15,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'root',
       database: 'db_hackathon',
-      entities: [],
+      entities: [Projeto,Grupo],
       synchronize: true,
-    })
+    }),
+    ProjetoModule
   ],
   controllers: [],
   providers: [],
