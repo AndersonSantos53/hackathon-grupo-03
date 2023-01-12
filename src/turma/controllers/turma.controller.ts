@@ -34,7 +34,7 @@ export class TurmaController {
 
     @Put()
     @HttpCode (HttpStatus.OK)
-    update(@Body()projeto:Turma): Promise <Turma> {
+    update(@Body()turma:Turma): Promise <Turma> {
         return this.turmaService.update(turma)
     }
 
