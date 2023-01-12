@@ -5,6 +5,9 @@ import { Projeto } from './projeto/entities/projeto.entity';
 import { Grupo } from './grupopi/entities/grupo.entity';
 import { ProjetoModule } from './projeto/projeto.module';
 import { GrupoModule } from './grupopi/grupo.module';
+import { Turma } from './turma/entities/turma.entity';
+import { TurmaController } from './turma/controllers/turma.controller';
+import { TurmaModule } from './turma/turma.module';
 
 @Module({
   imports: [
@@ -15,11 +18,12 @@ import { GrupoModule } from './grupopi/grupo.module';
       username: 'root',
       password: 'root',
       database: 'db_hackathon',
-      entities: [Projeto, Grupo],
+      entities: [Projeto, Grupo, Turma],
       synchronize: true,
     }),
     ProjetoModule,
-    GrupoModule
+    GrupoModule,
+    TurmaModule
   ],
   controllers: [],
   providers: [],
